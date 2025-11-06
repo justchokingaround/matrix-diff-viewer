@@ -1,0 +1,67 @@
+metadata:
+  format_version: "1.0"
+  description: "Process adjacency matrix - modified version"
+  activities: ['Outcome: Success', 'Outcome: Fail', 'Checking case_NumberOfTerms', 'Checking case_RequestedAmount', 'Approval Decision', 'Final Review']
+
+dependencies:
+  - from: 'Outcome: Success'
+    to: Checking case_NumberOfTerms
+    temporal:
+      type: always
+      symbol: □t
+      direction: backward
+    existential:
+      type: implication
+      symbol: =>
+      direction: forward
+
+  - from: 'Outcome: Success'
+    to: Checking case_RequestedAmount
+    temporal:
+      type: eventual
+      symbol: ≻t
+      direction: backward
+    existential:
+      type: conjunction
+      symbol: ∧
+      direction: forward
+
+  - from: 'Outcome: Success'
+    to: 'Outcome: Fail'
+    existential:
+      type: nand
+      symbol: ⊼
+      direction: both
+
+  - from: Checking case_NumberOfTerms
+    to: Checking case_RequestedAmount
+    temporal:
+      type: possible
+      symbol: ◇t
+      direction: forward
+    existential:
+      type: disjunction
+      symbol: ∨
+      direction: forward
+
+  - from: Approval Decision
+    to: 'Outcome: Success'
+    temporal:
+      type: always
+      symbol: □t
+      direction: backward
+    existential:
+      type: implication
+      symbol: =>
+      direction: forward
+
+  - from: Final Review
+    to: Approval Decision
+    temporal:
+      type: eventual
+      symbol: ≻t
+      direction: forward
+    existential:
+      type: implication
+      symbol: =>
+      direction: forward

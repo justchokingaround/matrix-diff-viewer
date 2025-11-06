@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Diff Viewer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Matrix Diff Viewer</h1>
+            <p class="subtitle">Compare two YAML matrices and visualize the differences</p>
+        </header>
+
+        <section class="upload-section">
+            <div class="upload-container">
+                <div class="file-input-wrapper">
+                    <label for="file1">Matrix 1 (Before)</label>
+                    <input type="file" id="file1" accept=".yaml,.yml" />
+                    <span class="filename" id="filename1">No file selected</span>
+                </div>
+                <div class="file-input-wrapper">
+                    <label for="file2">Matrix 2 (After)</label>
+                    <input type="file" id="file2" accept=".yaml,.yml" />
+                    <span class="filename" id="filename2">No file selected</span>
+                </div>
+            </div>
+            <button id="compareBtn" class="compare-btn" disabled>Compare Matrices</button>
+        </section>
+
+        <section class="stats-legend-section" id="statsLegendSection" style="display: none;">
+            <div class="stats-container">
+                <h3>Change Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-item stat-total">
+                        <span class="stat-label">Total Relationships:</span>
+                        <span class="stat-value" id="statTotal">0</span>
+                    </div>
+                    <div class="stat-item temporal-stat">
+                        <span class="stat-label">Temporal Only:</span>
+                        <span class="stat-value" id="statTemporal">0</span>
+                    </div>
+                    <div class="stat-item existential-stat">
+                        <span class="stat-label">Existential Only:</span>
+                        <span class="stat-value" id="statExistential">0</span>
+                    </div>
+                    <div class="stat-item both-stat">
+                        <span class="stat-label">Both Changed:</span>
+                        <span class="stat-value" id="statBoth">0</span>
+                    </div>
+                    <div class="stat-item added-stat">
+                        <span class="stat-label">Added:</span>
+                        <span class="stat-value" id="statAdded">0</span>
+                    </div>
+                    <div class="stat-item removed-stat">
+                        <span class="stat-label">Removed:</span>
+                        <span class="stat-value" id="statRemoved">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend-container">
+                <h3>Legend</h3>
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="color-box temporal-only"></span>
+                        <span>Temporal Change Only</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box existential-only"></span>
+                        <span>Existential Change Only</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box both-changed"></span>
+                        <span>Both Changed</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box added"></span>
+                        <span>Added Relationship</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box removed"></span>
+                        <span>Removed Relationship</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="error-section" id="errorSection" style="display: none;">
+            <div class="error-message" id="errorMessage"></div>
+        </section>
+
+        <section class="matrix-section" id="matrixSection" style="display: none;">
+            <div class="matrix-header">
+                <h2 id="matrixTitle">Matrix 1 (Before)</h2>
+                <div class="toggle-container">
+                    <span class="toggle-label">Before</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="matrixToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="toggle-label">After</span>
+                </div>
+            </div>
+            <div class="table-container" id="matrixContainer"></div>
+        </section>
+    </div>
+
+    <!-- Include js-yaml library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+    <!-- Application scripts -->
+    <script src="yaml-parser.js"></script>
+    <script src="diff-engine.js"></script>
+    <script src="matrix-renderer.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
