@@ -1,9 +1,10 @@
-# Matrix Diff Viewer
+# Feature Log Analysis
 
-A static web application for visualizing differences between two YAML matrices. The tool displays matrices side-by-side with color-coded highlighting and detailed hover tooltips to show what has changed between versions.
+A static web application for feature log analysis to support the explainability of ML decision models using Process Mining techniques. We provide two options: analysis based on activity relationships (YAML) matrices and analysis based on directly-follow graphs (DFGs). The tool displays matrices side-by-side with color-coded highlighting and detailed hover tooltips to clearly indicate what has changed between versions. In addition, it supports the visualization of Directly-Follows Graphs (DFGs) using functionality from the [PM4JS-core repository](https://github.com/pm4js/pm4js-core), rendering the graphs side-by-side to facilitate direct comparison. The application also automatically computes distance measurements, enabling users to quickly quantify and analyze differences between the compared artifacts.
 
 ## Features
 
+### Feature Log Analysis using Activity Relationships Matrices
 - **Side-by-side comparison**: View both matrices simultaneously with aligned rows and columns
 - **Color-coded changes**: Visual highlighting for different types of changes
   - **Yellow**: Temporal properties changed only
@@ -13,11 +14,19 @@ A static web application for visualizing differences between two YAML matrices. 
   - **Dashed red border**: Removed relationships
 - **Detailed tooltips**: Hover over cells to see exact changes with before/after values
 - **Easy file upload**: Simply upload two YAML files to compare
+- **Distance measurement**: Computing matrix distance score
+
+### Feature Log Analysis using Directly-Follows Graphs (DFGs)
+- **Side-by-side comparison**: View both DFGs simultaneously
+- **Overview of activities**: Immediately get an overview of the number of activities, paths, and start and end activities
+- **Distance measurement**: Computing graph distance score
+
+### General
 - **GitHub Pages ready**: Can be hosted for free on GitHub Pages
 
 ## YAML Format
 
-The application expects YAML files containing an array of relationships between nodes, where each relationship has temporal and existential properties:
+Fo feature log analysis based on activity relationships matrices, the application expects YAML files containing an array of relationships between nodes, where each relationship has temporal and existential properties:
 
 ```yaml
 - from: 'Node A'
