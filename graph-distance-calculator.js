@@ -130,17 +130,21 @@ class GraphDistanceCalculator {
         const totalWeight1 = this.calculateTotalWeight(paths1);
         const totalWeight2 = this.calculateTotalWeight(paths2);
 
+        let sumMaxDiff = 0;
+
         for (const path of allPaths) {
             const weight1 = paths1[path] || 0;
             const weight2 = paths2[path] || 0;
             const absoluteDiff = Math.abs(weight1 - weight2);
 
             if (totalWeight1 > 0) {
-                maxDiffRatio1 = Math.max(maxDiffRatio1, absoluteDiff / totalWeight1);
+                ratio1 = absoluteDiff / totalWeight1;
             }
             if (totalWeight2 > 0) {
-                maxDiffRatio2 = Math.max(maxDiffRatio2, absoluteDiff / totalWeight2);
+                ratio2 = absoluteDiff / totalWeight2;
             }
+
+            sumMaxDiff += Math.max(ratio1,ratio2);
 
             differences.push({
                 path: path,
@@ -161,8 +165,7 @@ class GraphDistanceCalculator {
             totalWeight1,
             totalWeight2,
             differences,
-            maxDiffRatio1,
-            maxDiffRatio2
+            sumMaxDiff
         };
     }
 
