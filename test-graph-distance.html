@@ -101,7 +101,7 @@
                 detailDiv.innerHTML = `
                     <h3>Detailed Comparison (DFG1 vs DFG2):</h3>
                     <p>Total Weight DFG1: ${detail.totalWeight1}, Total Weight DFG2: ${detail.totalWeight2}</p>
-                    <p>Max Diff Ratio 1: ${detail.maxDiffRatio1.toFixed(4)}, Max Diff Ratio 2: ${detail.maxDiffRatio2.toFixed(4)}</p>
+                    <p>Sum Max Diff Ratio: ${detail.sumMaxDiff.toFixed(4)}</p>
                     <p>Path differences:</p>
                     <ul>
                         ${detail.differences.map(d => 
