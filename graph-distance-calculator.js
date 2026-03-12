@@ -6,7 +6,7 @@
 class GraphDistanceCalculator {
     /**
      * Calculate the graph similarity score between two DFGs based on the provided formula
-     * Formula: D(G,F) = 1 - max(|w_G(a,b) - w_F(a,b)| / sum(w_G(x,y)), |w_G(a,b) - w_F(a,b)| / sum(w_F(x,y)))
+     * Formula: D(G,F) = 1 - 1/|P| *sum_(a,b in P)( max(|w_G(a,b) - w_F(a,b)| / sum(w_G(x,y)), |w_G(a,b) - w_F(a,b)| / sum(w_F(x,y))))
      * Note: This formula actually produces a similarity score (higher = more similar) despite being called "distance"
      *
      * @param {Object} dfg1 - First DFG object with pathsFrequency
@@ -34,9 +34,7 @@ class GraphDistanceCalculator {
                 return 1; // identical
             }
 
-            // Calculate the maximum difference ratio for each path
-            let maxDiffRatio1 = 0; // Max |w1 - w2| / sum(w1)
-            let maxDiffRatio2 = 0; // Max |w1 - w2| / sum(w2)
+            let SumMaxDiff = 0; // Sum of all maximums
 
             for (const path of allPaths) {
                 const weight1 = paths1[path] || 0;
@@ -46,20 +44,22 @@ class GraphDistanceCalculator {
                 // Calculate ratios for normalization
                 if (totalWeight1 > 0) {
                     const ratio1 = absoluteDiff / totalWeight1;
-                    maxDiffRatio1 = Math.max(maxDiffRatio1, ratio1);
-                }
+                } else {
+		        ratio2 = 0;
+		        }
 
                 if (totalWeight2 > 0) {
                     const ratio2 = absoluteDiff / totalWeight2;
-                    maxDiffRatio2 = Math.max(maxDiffRatio2, ratio2);
-                }
+                } else {
+		        ratio2 = 0;
+		        }
+
+		        SumMaxDiff += Math.max(ratio1,ratio2)
             }
 
-            // Calculate the maximum of the two ratios
-            const maxRatio = Math.max(maxDiffRatio1, maxDiffRatio2);
+            //Calculate similarity
+            const similarity = 1 - (SumMaxDiff / allPaths.size);
 
-            // Calculate similarity: Similarity = 1 - maxRatio
-            const similarity = 1 - maxRatio;
 
             // Ensure the result is between 0 and 1
             return Math.max(0, Math.min(1, similarity));
