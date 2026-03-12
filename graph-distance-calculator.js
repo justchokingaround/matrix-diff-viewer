@@ -45,7 +45,7 @@ class GraphDistanceCalculator {
                 if (totalWeight1 > 0) {
                     const ratio1 = absoluteDiff / totalWeight1;
                 } else {
-		        ratio2 = 0;
+		        ratio1 = 0;
 		        }
 
                 if (totalWeight2 > 0) {
@@ -54,7 +54,7 @@ class GraphDistanceCalculator {
 		        ratio2 = 0;
 		        }
 
-		        sumMaxDiff += Math.max(ratio1,ratio2)
+		        sumMaxDiff += Math.max(ratio1,ratio2);
             }
 
             //Calculate similarity
